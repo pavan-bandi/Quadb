@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="output.css" />
+  </head>
+  
+  <body class="bg-sky-950">
+    <div class="flex flex-wrap  items-center px-4 py-2 sm:py-4">
+      <div class="w-full sm:w-auto mb-2 sm:mb-0">
+        <img src="https://hodlinfo.com/static/media/HODLINFO.8f78fc06.png" style="height: 4rem; width: 20rem;" />
+      </div>
+
+      <div class="w-full sm:w-auto mb-2 sm:mb-0 lg:pl-44">
+        <select id="countries" class="rounded-lg">
+          <option selected>CUR</option>
+          <option value="US">United States</option>
+          <option value="CA">Canada</option>
+          <option value="FR">France</option>
+          <option value="DE">Germany</option>
+        </select>
+      </div>
+
+      <div class="w-full sm:w-auto mb-2 sm:mb-0 px-1">
+        <select id="countries" class="rounded-lg">
+          <option selected>INR</option>
+          <option value="US">United States</option>
+          <option value="CA">Canada</option>
+          <option value="FR">France</option>
+          <option value="DE">Germany</option>
+        </select>
+      </div>
+
+      <div class="w-full sm:w-auto px-1">
+        <select id="countries" class="rounded-lg">
+          <option selected>BIT</option>
+          <option value="US">United States</option>
+          <option value="CA">Canada</option>
+          <option value="FR">France</option>
+          <option value="DE">Germany</option>
+        </select>
+      </div>
+
+      <div class="relative w-64 h-4 rounded-full bg-gray-400">
+        <div class="absolute top-0 left-0 h-full rounded-full bg-green-500" style="width: 0%;">
+          <div class="absolute top-0 right-0 h-full rounded-full bg-white" style="width: 1px;"></div>
+        </div>
+      </div>
+      
+      
+     
+      
+      <div class="w-full sm:w-auto mb-2 sm:mb-0 px-1 ml-auto">
+      <button class="bg-green-300 hover:bg-green-400 text-white font-bold py-2 px-4 rounded flex items-center">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+          <path
+            fill-rule="evenodd"
+            d="M10 0C4.477 0 0 4.477 0 10c0 5.523 4.477 10 10 10 5.523 0 10-4.477 10-10 0-5.523-4.477-10-10-10zM7.706 14.406l.298-3.117 3.762 2.845c.081.061.179.092.277.092.103 0 .205-.034.288-.103l5.162-4.424-.342-1.776-4.507 3.905-2.6-1.97-1.672 1.817v2.72z"
+            clip-rule="evenodd"
+          />
+        </svg>
+        Telegram
+      </button>
+      </div>
+      
+    </div>
+
+    <table class="min-w-full md:w-48 table-auto border-collapse">
+      <thead>
+        <tr class="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
+          <th class="py-3 px-4 text-left">Name</th>
+          <th class="py-3 px-4 text-left">Cryptocurrency</th>
+          <th class="py-3 px-4 text-left">last</th>
+          <th class="py-3 px-4 text-left">Volume</th>
+          <th class="py-3 px-4 text-left">Buy</th>
+          <th class="py-3 px-4 text-left">Sell</th>
+        </tr>
+      </thead>
+      <tbody id="price-table">
+      </tbody>
+        </table>
+
+        <script>
+          const priceTable = document.querySelector('#price-table');
+      
+          function updatePrices() {
+            fetch('/crypto/prices')
+              .then(response => response.json())
+              .then(data => {
+                // clear the table
+                priceTable.innerHTML = '';
+                // add each row to the table
+                data.forEach(row => {
+                  const tr = document.createElement('tr');
+                  const td1 = document.createElement('td');
+                  td1.innerText = row.Name;
+                  tr.appendChild(td1);
+                 
+                  const td2 = document.createElement('td');
+                  td2.innerText = row.last;
+                  tr.appendChild(td2);
+                  const td3 = document.createElement('td');
+                  td1.innerText = row.base_unit;
+                  tr.appendChild(td3);
+                 
+                  const td4 = document.createElement('td');
+                  td2.innerText = row.sell;
+                  tr.appendChild(td4);
+                  const td5 = document.createElement('td');
+                  td1.innerText = row.buy;
+                  tr.appendChild(td1);
+                 
+                  const td6 = document.createElement('td');
+                  td2.innerText = row.volume;
+                  tr.appendChild(td2);
+                  priceTable.appendChild(tr);
+                });
+              });
+          }
+      
+          // update the prices every 10 seconds
+          setInterval(updatePrices, 10000);
+        </script>
+
+        <script></script>
+
+    
+  </body>
+</html>
