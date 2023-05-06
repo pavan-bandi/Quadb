@@ -2,7 +2,7 @@ const mongoose=require('mongoose');
 
 const connectDatabase=()=>{
     mongoose
-    .connect("mongodb+srv://vigneshreddy:Geetha@cluster0.dmjuere.mongodb.net/?retryWrites=true&w=majority", {
+    .connect("URI", {
       useNewUrlParser: true,
       useUnifiedTopology: true,
       
