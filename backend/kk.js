@@ -1,6 +1,7 @@
 const express=require("express")
 const app=express()
 const cryptcur=require("./api/api")
+const cors=require('cors')
 const connectDatabase = require("./config/database");
 connectDatabase()
 const bodyParser  = require('body-parser');
@@ -9,6 +10,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json());
 
+app.use(cors());
 const catchAsyncErrors=require('./catchAsyncErrors')
 const asynch=require("express-async-handler")
 const crypto = require("./models/crypto");

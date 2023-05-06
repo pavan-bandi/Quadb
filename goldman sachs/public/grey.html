@@ -44,16 +44,12 @@
         </select>
       </div>
 
-      <div class="relative w-64 h-4 rounded-full bg-gray-400">
-        <div class="absolute top-0 left-0 h-full rounded-full bg-green-500" style="width: 0%;">
-          <div class="absolute top-0 right-0 h-full rounded-full bg-white" style="width: 1px;"></div>
-        </div>
-      </div>
+     
       
       
      
       
-      <div class="w-full sm:w-auto mb-2 sm:mb-0 px-1 ml-auto">
+      <div class="w-full sm:w-auto mb-2 sm:mb-0 px-3 ml-auto p-20">
       <button class="bg-green-300 hover:bg-green-400 text-white font-bold py-2 px-4 rounded flex items-center">
         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
           <path
@@ -68,17 +64,19 @@
       
     </div>
 
-    <table class="min-w-full md:w-48 table-auto border-collapse">
-      <thead>
-        <tr class="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
-          <th class="py-3 px-4 text-left">Name</th>
-          <th class="py-3 px-4 text-left">Cryptocurrency</th>
-          <th class="py-3 px-4 text-left">last</th>
-          <th class="py-3 px-4 text-left">Volume</th>
-          <th class="py-3 px-4 text-left">Buy</th>
-          <th class="py-3 px-4 text-left">Sell</th>
-        </tr>
-      </thead>
+    <div class="overflow-x-auto">
+      <table class="mx-auto w-full whitespace-no-wrap rounded-lg bg-white border border-gray-300 sm:table">
+        <thead>
+          <tr class="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
+            <th class="py-3 px-4 text-left">Name</th>
+            <th class="py-3 px-4 text-left">Cryptocurrency</th>
+            <th class="py-3 px-4 text-left">last</th>
+            <th class="py-3 px-4 text-left">Volume</th>
+            <th class="py-3 px-4 text-left">Buy</th>
+            <th class="py-3 px-4 text-left">Sell</th>
+          </tr>
+        </thead>
+      
       <tbody id="price-table">
       </tbody>
         </table>
@@ -87,35 +85,37 @@
           const priceTable = document.querySelector('#price-table');
       
           function updatePrices() {
-            fetch('/crypto/prices')
+            fetch('http://localhost:8090/crypto/prices')
               .then(response => response.json())
               .then(data => {
                 // clear the table
+               console.log(data)
                 priceTable.innerHTML = '';
-                // add each row to the table
-                data.forEach(row => {
+                
+                data.Prod.forEach(row => {
+                  console.log(row)
                   const tr = document.createElement('tr');
                   const td1 = document.createElement('td');
                   td1.innerText = row.Name;
                   tr.appendChild(td1);
                  
                   const td2 = document.createElement('td');
-                  td2.innerText = row.last;
+                  td2.innerText = row.base_unit;
                   tr.appendChild(td2);
                   const td3 = document.createElement('td');
-                  td1.innerText = row.base_unit;
+                  td3.innerText = row.last;
                   tr.appendChild(td3);
                  
                   const td4 = document.createElement('td');
-                  td2.innerText = row.sell;
+                  td4.innerText = row.volume;
                   tr.appendChild(td4);
                   const td5 = document.createElement('td');
-                  td1.innerText = row.buy;
-                  tr.appendChild(td1);
+                  td5.innerText = row.buy;
+                  tr.appendChild(td5);
                  
                   const td6 = document.createElement('td');
-                  td2.innerText = row.volume;
-                  tr.appendChild(td2);
+                  td6.innerText = row.sell;
+                  tr.appendChild(td6);
                   priceTable.appendChild(tr);
                 });
               });
